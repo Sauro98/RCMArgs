@@ -5,4 +5,4 @@ Exercise from the book
 
 ## Current state
 
--[x] First draft (boolean only) + tests; 
+- [x] First draft (boolean only) + tests 
