@@ -122,4 +122,21 @@ public class TestArgs {
 		
 	}
 	
+	@Test
+	public void testGetNonBooleanReturnsFalse() throws Exception{
+		Args args = new Args("c#",new String[]{"-c","3"});
+		assertEquals(false,args.getBoolean('c'));
+	}
+	
+	@Test
+	public void testGetNonStringReturnsEmptyString() throws Exception{
+		Args args = new Args("c#",new String[]{"-c","3"});
+		assertEquals("",args.getString('c'));
+	}
+	
+	@Test
+	public void testGetNonIntegerReturnsZero() throws Exception{
+		Args args = new Args("c*",new String[]{"-c","ciao"});
+		assertEquals(0,args.getInteger('c'));
+	}
 }
