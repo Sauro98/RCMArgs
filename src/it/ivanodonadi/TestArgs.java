@@ -27,6 +27,13 @@ public class TestArgs {
 	}
 	
 	@Test 
+	public void testInvalidSchema() throws Exception{
+		exception.expect(ParseException.class);
+		exception.expectMessage("Argument: l has invalid format: %.");
+		Args args = new Args("l%",new String[]{});
+	}
+	
+	@Test 
 	public void testCardinality() throws Exception{
 		Args args = new Args("l,c,d",new String[] {"-l","-c","-d"});
 		assertEquals(true, args.isValid());
@@ -85,11 +92,34 @@ public class TestArgs {
 	}
 	
 	@Test
+	public void testGetInteger() throws Exception{
+		Args args = new Args("c#",new String[]{"-c","3"});
+		assertEquals(true,args.has('c'));
+		assertEquals(3,args.getInteger('c'));
+		assertEquals(0,args.getInteger('d'));
+	}
+	
+	@Test
 	public void testFindMissingString() throws Exception{
 		Args args = new Args("c*",new String[]{"-c"});
 		assertEquals("",args.getString('c'));
 		assertEquals("",args.getString('d'));
 		assertEquals("Could not find string parameter for -c.",args.errorMessage());
+	}
+	
+	@Test 
+	public void testFindMissingInteger() throws Exception{
+		Args args = new Args("c#",new String[]{"-c"});
+		assertEquals(0,args.getInteger('c'));
+		assertEquals("Could not find integer parameter for -c.",args.errorMessage());
+	}
+	
+	@Test
+	public void testFindInvalidInteger() throws Exception{
+		Args args = new Args("c#",new String[]{"-c","a"});
+		assertEquals(0,args.getInteger('c'));
+		assertEquals("Argument -c expects an integer but was 'a'.",args.errorMessage());
+		
 	}
 	
 }
