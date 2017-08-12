@@ -7,3 +7,4 @@ Exercise from the book
 
 - [x] First draft (boolean only) + tests (code coverage 100%) 
 - [x] First draft (boolean + string) + tests (code coverage 96,8%)
+- [x] First draft + tests (code coverage 97%)
